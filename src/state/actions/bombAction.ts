@@ -6,6 +6,7 @@ import {
   OpenCellOption,
   OPEN_CELL,
   QUESTION_CELL,
+  SET_TIMER,
   StartOption,
   START_GAME,
 } from "./bombActionDispatch";
@@ -52,3 +53,8 @@ export const normalizeCell =
       payload: option,
     });
   };
+export const setTimer = () => (dispatch: Dispatch) => {
+  dispatch({
+    type: SET_TIMER,
+  });
+};

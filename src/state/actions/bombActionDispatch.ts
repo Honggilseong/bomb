@@ -4,6 +4,7 @@ export const CLICK_BOMB = "CLICK_BOMB";
 export const FLAG_CELL = "FLAG_CELL";
 export const QUESTION_CELL = "QUESTION_CELL";
 export const NORMALIZE_CELL = "NORMALIZE_CELL";
+export const SET_TIMER = "SET_TIMER";
 
 export interface StartOption {
   row: string;
@@ -46,10 +47,15 @@ export interface normalizeCell {
   payload: OpenCellOption;
 }
 
+export interface setTimer {
+  type: typeof SET_TIMER;
+}
+
 export type bombActionDispatch =
   | startGame
   | openCell
   | clickBomb
   | flagCell
   | questionCell
-  | normalizeCell;
+  | normalizeCell
+  | setTimer;

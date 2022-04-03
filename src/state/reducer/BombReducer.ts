@@ -7,6 +7,7 @@ import {
   FLAG_CELL,
   QUESTION_CELL,
   NORMALIZE_CELL,
+  SET_TIMER,
 } from "../actions/bombActionDispatch";
 
 interface InitialState {
@@ -20,6 +21,7 @@ interface InitialState {
     bombs: string;
   };
   openCounter: number;
+  timerCheck: boolean;
 }
 const initialState = {
   table: [],
@@ -32,6 +34,7 @@ const initialState = {
     bombs: "",
   },
   openCounter: 0,
+  timerCheck: true,
 };
 const BombReducer = (
   state: InitialState = initialState,
@@ -51,6 +54,8 @@ const BombReducer = (
           bombs,
         },
         openCounter: 0,
+        timer: 0,
+        timerCheck: false,
       };
     }
     case OPEN_CELL: {
@@ -149,6 +154,7 @@ const BombReducer = (
       checkAround(intRow, intCell);
       let gameState = false;
       let result = "";
+      let timerCheck = false;
       //승리 방식 : 가로 세로 곱하기 - 폭탄의 갯수 만큼 클릭을하면 승리
       if (
         parseInt(state.gameSet.row) * parseInt(state.gameSet.cell) -
@@ -156,6 +162,7 @@ const BombReducer = (
         state.openCounter + openCounter
       ) {
         gameState = true;
+        timerCheck = true;
         result = "Winner!!";
         console.log("승리!");
       }
@@ -165,6 +172,7 @@ const BombReducer = (
         result,
         gameState,
         openCounter: state.openCounter + openCounter,
+        timerCheck,
       };
     }
     case CLICK_BOMB: {
@@ -175,7 +183,7 @@ const BombReducer = (
 
       newTable[intRow] = [...state.table[intRow]];
       newTable[intRow][intCell] = CODE.CLICKED_BOMB;
-      return { ...state, table: newTable, gameState: true };
+      return { ...state, table: newTable, gameState: true, timerCheck: true };
     }
     case FLAG_CELL: {
       const { row, cell } = action.payload;
@@ -221,6 +229,13 @@ const BombReducer = (
         newTable[intRow][intCell] = CODE.NORMAL;
       }
       return { ...state, table: newTable };
+    }
+    case SET_TIMER: {
+      console.log(state.timer);
+      return {
+        ...state,
+        timer: state.timer + 1,
+      };
     }
     default:
       return state;
