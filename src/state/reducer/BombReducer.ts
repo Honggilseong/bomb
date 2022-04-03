@@ -14,12 +14,24 @@ interface InitialState {
   timer: number;
   result: string;
   gameState: boolean;
+  gameSet: {
+    row: string;
+    cell: string;
+    bombs: string;
+  };
+  openCounter: number;
 }
 const initialState = {
   table: [],
   timer: 0,
   result: "",
   gameState: false,
+  gameSet: {
+    row: "",
+    cell: "",
+    bombs: "",
+  },
+  openCounter: 0,
 };
 const BombReducer = (
   state: InitialState = initialState,
@@ -31,11 +43,19 @@ const BombReducer = (
       return {
         ...state,
         table: generateBomb(row, cell, bombs),
+        result: "",
         gameState: false,
+        gameSet: {
+          row,
+          cell,
+          bombs,
+        },
+        openCounter: 0,
       };
     }
     case OPEN_CELL: {
       const { row, cell } = action.payload;
+      let openCounter = 0;
       const intRow = parseInt(row);
       const intCell = parseInt(cell);
       const newTable = [...state.table];
@@ -124,9 +144,28 @@ const BombReducer = (
             }
           });
         }
+        openCounter += 1;
       };
       checkAround(intRow, intCell);
-      return { ...state, table: newTable };
+      let gameState = false;
+      let result = "";
+      //승리 방식 : 가로 세로 곱하기 - 폭탄의 갯수 만큼 클릭을하면 승리
+      if (
+        parseInt(state.gameSet.row) * parseInt(state.gameSet.cell) -
+          parseInt(state.gameSet.bombs) ===
+        state.openCounter + openCounter
+      ) {
+        gameState = true;
+        result = "Winner!!";
+        console.log("승리!");
+      }
+      return {
+        ...state,
+        table: newTable,
+        result,
+        gameState,
+        openCounter: state.openCounter + openCounter,
+      };
     }
     case CLICK_BOMB: {
       const { row, cell } = action.payload;
