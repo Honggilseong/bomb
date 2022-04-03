@@ -20,6 +20,16 @@ const getStyle = (code: number) => {
       return {
         background: "white",
       };
+    case CODE.QUESTION:
+    case CODE.QUESTION_BOMB:
+      return {
+        background: "yellow",
+      };
+    case CODE.FLAG_BOMB:
+    case CODE.FLAG:
+      return {
+        background: "white",
+      };
     default:
       return {
         background: "white",
@@ -32,9 +42,19 @@ const getBombs = (code: number) => {
     case CODE.NORMAL:
       return "";
     case CODE.BOMB:
-      return "X";
+      return "💣";
     case CODE.CLICKED_BOMB:
       return "끝";
+    case CODE.QUESTION:
+    case CODE.QUESTION_BOMB:
+      return {
+        background: "?",
+      };
+    case CODE.FLAG_BOMB:
+    case CODE.FLAG:
+      return {
+        background: "!",
+      };
     default:
       return code || "";
   }
@@ -46,6 +66,12 @@ function Td({ rowIndex, cellIndex }: Props) {
   const onClickTable = () => {
     if (bombsArray.gameState) return;
     switch (bombsArray.table[rowIndex][cellIndex]) {
+      case CODE.OPENED:
+      case CODE.FLAG_BOMB:
+      case CODE.FLAG:
+      case CODE.QUESTION_BOMB:
+      case CODE.QUESTION:
+        return;
       case CODE.NORMAL:
         dispatch(
           openCell({ row: rowIndex.toString(), cell: cellIndex.toString() })
