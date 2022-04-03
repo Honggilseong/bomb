@@ -23,7 +23,10 @@ function App() {
   return (
     <div className="flex justify-center items-center w-full flex-col h-full ">
       <h1 className="text-2xl font-bold mb-10">지뢰찾기</h1>
-      <p>{state.timer}</p>
+      <p>시간</p>
+      <div className=" bg-black p-3 mb-5 rounded-full">
+        <p className=" text-red-700 font-bold text-3xl">{state.timer}</p>
+      </div>
       {state.result && (
         <h2 className="font-bold text-8xl mb-5">{state.result}</h2>
       )}
