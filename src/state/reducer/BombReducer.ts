@@ -25,7 +25,11 @@ const BombReducer = (
   switch (action.type) {
     case START_GAME: {
       const { row, cell, bombs } = action.payload;
-      return { ...state, table: generateBomb(row, cell, bombs) };
+      return {
+        ...state,
+        table: generateBomb(row, cell, bombs),
+        gameState: false,
+      };
     }
     case OPEN_CELL: {
       const { row, cell } = action.payload;

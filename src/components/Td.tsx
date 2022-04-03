@@ -44,6 +44,7 @@ function Td({ rowIndex, cellIndex }: Props) {
   const bombsArray = useSelector((state: RootState) => state.bomb);
   const dispatch = useDispatch();
   const onClickTable = () => {
+    if (bombsArray.gameState) return;
     switch (bombsArray.table[rowIndex][cellIndex]) {
       case CODE.NORMAL:
         dispatch(
