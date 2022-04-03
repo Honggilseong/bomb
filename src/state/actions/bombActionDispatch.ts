@@ -1,7 +1,14 @@
-export const ADD_DATA = "ADD_DATA";
+export const START_GAME = "START_GAME";
 
-export interface addData {
-  type: typeof ADD_DATA;
+export interface StartOption {
+  row: string;
+  cell: string;
+  bombs: string;
 }
 
-export type bombActionDispatch = addData;
+export interface startGame {
+  type: typeof START_GAME;
+  payload: StartOption;
+}
+
+export type bombActionDispatch = startGame;

@@ -1,11 +1,12 @@
-import { bombActionDispatch } from "../actions/bombActionDispatch";
+import { generateBomb } from "../../util/generateBomb";
+import { bombActionDispatch, START_GAME } from "../actions/bombActionDispatch";
 
 interface InitialState {
   timer: number;
   result: string;
 }
-
 const initialState = {
+  table: [],
   timer: 0,
   result: "",
 };
@@ -14,8 +15,9 @@ const BombReducer = (
   action: bombActionDispatch
 ) => {
   switch (action.type) {
-    case "ADD_DATA": {
-      return state;
+    case START_GAME: {
+      const { row, cell, bombs } = action.payload;
+      return { ...state, table: generateBomb(row, cell, bombs) };
     }
     default:
       return state;

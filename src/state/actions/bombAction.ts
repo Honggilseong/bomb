@@ -1,8 +1,9 @@
 import { Dispatch } from "redux";
-import { ADD_DATA } from "./bombActionDispatch";
+import { StartOption, START_GAME } from "./bombActionDispatch";
 
-export const addData = () => (dispatch: Dispatch) => {
+export const addData = (option: StartOption) => (dispatch: Dispatch) => {
   dispatch({
-    type: ADD_DATA,
+    type: START_GAME,
+    payload: option,
   });
 };
