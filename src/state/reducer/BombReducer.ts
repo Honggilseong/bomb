@@ -42,7 +42,7 @@ const BombReducer = (
       newTable.forEach((row, i) => {
         newTable[i] = [...state.table[i]];
       });
-      console.log("first Array", newTable);
+
       const check: string[] = [];
       const checkAround = (arrayRow: number, arrayCell: number) => {
         if (
@@ -55,7 +55,6 @@ const BombReducer = (
           ].includes(newTable[arrayRow][arrayCell])
         )
           return;
-        // 상하좌우 없는 칸은 안 열기
         if (
           arrayRow < 0 ||
           arrayRow >= newTable.length ||
@@ -64,12 +63,12 @@ const BombReducer = (
         ) {
           return;
         }
-        // 옆에칸 서로 검사하는 거 막아주기
+        // 중복 검사.
         if (check.includes(arrayRow + "," + arrayCell)) {
-          // 이미 검사한 칸이면
+          // 이미 검사한 칸이면 if문을 종료하고 아니라면 else를 실행
           return;
         } else {
-          // 아니면 checked 배열에 넣어주기
+          // 아니면 check에 넣어서 중복을 방지해준다.
           check.push(arrayRow + "," + arrayCell);
         }
         // 주변 지뢰 탐색

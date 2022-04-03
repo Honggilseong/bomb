@@ -20,7 +20,7 @@ const getStyle = (code: number) => {
     case CODE.NORMAL:
     case CODE.BOMB:
       return {
-        background: "#444",
+        background: "#9e9e9e",
       };
     case CODE.OPENED:
       return {
@@ -48,15 +48,15 @@ const getBombs = (code: number) => {
     case CODE.NORMAL:
       return "";
     case CODE.BOMB:
-      return "💣";
+      return "";
     case CODE.CLICKED_BOMB:
-      return "끝";
+      return "💣";
     case CODE.QUESTION:
     case CODE.QUESTION_BOMB:
-      return "?";
+      return "❓";
     case CODE.FLAG_BOMB:
     case CODE.FLAG:
-      return "!";
+      return "🚩";
     default:
       return code || "";
   }

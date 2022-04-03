@@ -20,37 +20,45 @@ function Form() {
   };
 
   return (
-    <div className="flex">
-      <div className="flex flex-col items-center">
-        <p>세로</p>
+    <div className="flex mt-10">
+      <h1 className="self-center mr-5 font-bold text-lg">커스텀 설정</h1>
+
+      <div className="flex flex-row items-center">
+        <p className="border-b border-blue-600">세로</p>
         <input
           type="number"
           placeholder="세로"
           value={row}
           onChange={(event) => onChangeNumber(rowSet, event)}
+          className="w-10"
         />
       </div>
-      <div className="flex flex-col items-center">
-        <p>가로</p>
+      <div className="flex flex-row items-center">
+        <p className="border-b border-blue-600">가로</p>
         <input
           type="number"
           placeholder="가로"
           value={cell}
           onChange={(event) => onChangeNumber(cellSet, event)}
+          className="w-10"
         />
       </div>
-      <div className="flex flex-col items-center">
-        <p>지뢰</p>
+      <div className="flex flex-row items-center">
+        <p className="border-b border-blue-600">지뢰</p>
         <input
           type="number"
           placeholder="지뢰"
           value={bombs}
           onChange={(event) => onChangeNumber(bombsSet, event)}
+          className="w-10"
         />
       </div>
 
-      <div onClick={() => onStartGame()}>
-        <p>시작</p>
+      <div
+        onClick={() => onStartGame()}
+        className="border border-cyan-700 p-3 flex justify-center items-center cursor-pointer bg-cyan-500 rounded-lg ml-5 hover:bg-cyan-700"
+      >
+        <p className="text-white">시작</p>
       </div>
     </div>
   );
