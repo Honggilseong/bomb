@@ -4,6 +4,7 @@ import {
   FLAG_CELL,
   OpenCellOption,
   OPEN_CELL,
+  QUESTION_CELL,
   StartOption,
   START_GAME,
 } from "./bombActionDispatch";
@@ -35,3 +36,11 @@ export const flagCell = (option: OpenCellOption) => (dispatch: Dispatch) => {
     payload: option,
   });
 };
+
+export const questionCell =
+  (option: OpenCellOption) => (dispatch: Dispatch) => {
+    dispatch({
+      type: QUESTION_CELL,
+      payload: option,
+    });
+  };

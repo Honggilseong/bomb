@@ -5,6 +5,7 @@ import {
   OPEN_CELL,
   CLICK_BOMB,
   FLAG_CELL,
+  QUESTION_CELL,
 } from "../actions/bombActionDispatch";
 
 interface InitialState {
@@ -57,10 +58,26 @@ const BombReducer = (
       const intRow = parseInt(row);
       const intCell = parseInt(cell);
       const newTable = [...state.table];
+
+      newTable[intRow] = [...state.table[intRow]];
       if (newTable[intRow][intCell] === CODE.BOMB) {
         newTable[intRow][intCell] = CODE.FLAG_BOMB;
       } else {
         newTable[intRow][intCell] = CODE.FLAG;
+      }
+      return { ...state, table: newTable };
+    }
+    case QUESTION_CELL: {
+      const { row, cell } = action.payload;
+      const intRow = parseInt(row);
+      const intCell = parseInt(cell);
+      const newTable = [...state.table];
+
+      newTable[intRow] = [...state.table[intRow]];
+      if (newTable[intRow][intCell] === CODE.FLAG_BOMB) {
+        newTable[intRow][intCell] = CODE.QUESTION_BOMB;
+      } else {
+        newTable[intRow][intCell] = CODE.QUESTION;
       }
       return { ...state, table: newTable };
     }

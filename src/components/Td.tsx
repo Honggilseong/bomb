@@ -1,6 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clickBomb, flagCell, openCell } from "../state/actions/bombAction";
+import {
+  clickBomb,
+  flagCell,
+  openCell,
+  questionCell,
+} from "../state/actions/bombAction";
 import { RootState } from "../state/reducer";
 import { CODE } from "../util/generateBomb";
 
@@ -93,6 +98,12 @@ function Td({ rowIndex, cellIndex }: Props) {
       case CODE.BOMB:
         dispatch(
           flagCell({ row: rowIndex.toString(), cell: cellIndex.toString() })
+        );
+        return;
+      case CODE.FLAG_BOMB:
+      case CODE.FLAG:
+        dispatch(
+          questionCell({ row: rowIndex.toString(), cell: cellIndex.toString() })
         );
         return;
       default:
