@@ -1,4 +1,4 @@
-const CODE = {
+export const CODE = {
   BOMB: -7,
   NORMAL: -1,
   QUESTION: -2,
