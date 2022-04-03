@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   clickBomb,
   flagCell,
+  normalizeCell,
   openCell,
   questionCell,
 } from "../state/actions/bombAction";
@@ -52,14 +53,10 @@ const getBombs = (code: number) => {
       return "끝";
     case CODE.QUESTION:
     case CODE.QUESTION_BOMB:
-      return {
-        background: "?",
-      };
+      return "?";
     case CODE.FLAG_BOMB:
     case CODE.FLAG:
-      return {
-        background: "!",
-      };
+      return "!";
     default:
       return code || "";
   }
@@ -106,6 +103,15 @@ function Td({ rowIndex, cellIndex }: Props) {
           questionCell({ row: rowIndex.toString(), cell: cellIndex.toString() })
         );
         return;
+      case CODE.QUESTION_BOMB:
+      case CODE.QUESTION:
+        dispatch(
+          normalizeCell({
+            row: rowIndex.toString(),
+            cell: cellIndex.toString(),
+          })
+        );
+        return;
       default:
         return;
     }
@@ -114,6 +120,7 @@ function Td({ rowIndex, cellIndex }: Props) {
     <td
       className="border border-black w-10 h-10"
       onClick={() => onClickTable()}
+      onContextMenu={(event) => onRightClick(event)}
       style={getStyle(bombsArray.table[rowIndex][cellIndex])}
     >
       <div className="flex justify-center items-center">

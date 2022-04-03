@@ -2,6 +2,7 @@ import { Dispatch } from "redux";
 import {
   CLICK_BOMB,
   FLAG_CELL,
+  NORMALIZE_CELL,
   OpenCellOption,
   OPEN_CELL,
   QUESTION_CELL,
@@ -41,6 +42,13 @@ export const questionCell =
   (option: OpenCellOption) => (dispatch: Dispatch) => {
     dispatch({
       type: QUESTION_CELL,
+      payload: option,
+    });
+  };
+export const normalizeCell =
+  (option: OpenCellOption) => (dispatch: Dispatch) => {
+    dispatch({
+      type: NORMALIZE_CELL,
       payload: option,
     });
   };

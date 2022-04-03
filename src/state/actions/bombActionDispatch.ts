@@ -3,6 +3,7 @@ export const OPEN_CELL = "OPEN_CELL";
 export const CLICK_BOMB = "CLICK_BOMB";
 export const FLAG_CELL = "FLAG_CELL";
 export const QUESTION_CELL = "QUESTION_CELL";
+export const NORMALIZE_CELL = "NORMALIZE_CELL";
 
 export interface StartOption {
   row: string;
@@ -40,9 +41,15 @@ export interface questionCell {
   payload: OpenCellOption;
 }
 
+export interface normalizeCell {
+  type: typeof NORMALIZE_CELL;
+  payload: OpenCellOption;
+}
+
 export type bombActionDispatch =
   | startGame
   | openCell
   | clickBomb
   | flagCell
-  | questionCell;
+  | questionCell
+  | normalizeCell;
