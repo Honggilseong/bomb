@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import {
   CLICK_BOMB,
+  FLAG_CELL,
   OpenCellOption,
   OPEN_CELL,
   StartOption,
@@ -24,6 +25,13 @@ export const openCell = (option: OpenCellOption) => (dispatch: Dispatch) => {
 export const clickBomb = (option: OpenCellOption) => (dispatch: Dispatch) => {
   dispatch({
     type: CLICK_BOMB,
+    payload: option,
+  });
+};
+
+export const flagCell = (option: OpenCellOption) => (dispatch: Dispatch) => {
+  dispatch({
+    type: FLAG_CELL,
     payload: option,
   });
 };

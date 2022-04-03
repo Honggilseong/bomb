@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clickBomb, openCell } from "../state/actions/bombAction";
+import { clickBomb, flagCell, openCell } from "../state/actions/bombAction";
 import { RootState } from "../state/reducer";
 import { CODE } from "../util/generateBomb";
 
@@ -80,6 +80,19 @@ function Td({ rowIndex, cellIndex }: Props) {
       case CODE.BOMB:
         dispatch(
           clickBomb({ row: rowIndex.toString(), cell: cellIndex.toString() })
+        );
+        return;
+      default:
+        return;
+    }
+  };
+  const onRightClick = (event: any) => {
+    event.preventDefault();
+    switch (bombsArray.table[rowIndex][cellIndex]) {
+      case CODE.NORMAL:
+      case CODE.BOMB:
+        dispatch(
+          flagCell({ row: rowIndex.toString(), cell: cellIndex.toString() })
         );
         return;
       default:

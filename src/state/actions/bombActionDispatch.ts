@@ -1,6 +1,8 @@
 export const START_GAME = "START_GAME";
 export const OPEN_CELL = "OPEN_CELL";
 export const CLICK_BOMB = "CLICK_BOMB";
+export const FLAG_CELL = "FLAG_CELL";
+
 export interface StartOption {
   row: string;
   cell: string;
@@ -27,4 +29,9 @@ export interface clickBomb {
   payload: OpenCellOption;
 }
 
-export type bombActionDispatch = startGame | openCell | clickBomb;
+export interface flagCell {
+  type: typeof FLAG_CELL;
+  payload: OpenCellOption;
+}
+
+export type bombActionDispatch = startGame | openCell | clickBomb | flagCell;
