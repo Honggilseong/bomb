@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { openCell } from "../state/actions/bombAction";
+import { clickBomb, openCell } from "../state/actions/bombAction";
 import { RootState } from "../state/reducer";
 import { CODE } from "../util/generateBomb";
 
@@ -33,6 +33,8 @@ const getBombs = (code: number) => {
       return "";
     case CODE.BOMB:
       return "X";
+    case CODE.CLICKED_BOMB:
+      return "끝";
     default:
       return code || "";
   }
@@ -46,6 +48,11 @@ function Td({ rowIndex, cellIndex }: Props) {
       case CODE.NORMAL:
         dispatch(
           openCell({ row: rowIndex.toString(), cell: cellIndex.toString() })
+        );
+        return;
+      case CODE.BOMB:
+        dispatch(
+          clickBomb({ row: rowIndex.toString(), cell: cellIndex.toString() })
         );
         return;
       default:
