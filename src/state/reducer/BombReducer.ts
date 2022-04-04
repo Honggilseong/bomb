@@ -22,6 +22,7 @@ interface InitialState {
   };
   openCounter: number;
   timerCheck: boolean;
+  isFirst: boolean;
 }
 const initialState = {
   table: [],
@@ -35,6 +36,7 @@ const initialState = {
   },
   openCounter: 0,
   timerCheck: true,
+  isFirst: true,
 };
 const BombReducer = (
   state: InitialState = initialState,
@@ -56,6 +58,7 @@ const BombReducer = (
         openCounter: 0,
         timer: 0,
         timerCheck: false,
+        isFirst: true,
       };
     }
     case OPEN_CELL: {
@@ -129,13 +132,16 @@ const BombReducer = (
         // 클릭한 칸에 카운트 값을 추가해줍니다.
         newTable[arrayRow][arrayCell] = count;
 
+        //주변에 지뢰가 없다면 지뢰가 나올 때 까지 계속 열주는 조건문.
         if (count === 0) {
           const near: number[][] = [];
+          // 인덱스가 0번이 아니라면 위에 배열을 near에 추가해줍니다.
           if (arrayRow - 1 > -1) {
             near.push([arrayRow - 1, arrayCell - 1]);
             near.push([arrayRow - 1, arrayCell]);
             near.push([arrayRow - 1, arrayCell + 1]);
           }
+          //클릭 기준 좌 우를 near에 추가해줍니다.
           near.push([arrayRow, arrayCell - 1]);
           near.push([arrayRow, arrayCell + 1]);
           if (arrayRow + 1 < newTable.length) {
@@ -143,6 +149,7 @@ const BombReducer = (
             near.push([arrayRow + 1, arrayCell]);
             near.push([arrayRow + 1, arrayCell + 1]);
           }
+          //칸이 이미 열려있다면 실행되지 않는다. 안 열려 있다면 계속 열어줍니다.
           near.forEach((n) => {
             if (newTable[n[0]][n[1]] !== CODE.OPENED) {
               checkAround(n[0], n[1]);
@@ -182,7 +189,7 @@ const BombReducer = (
       const newTable = [...state.table];
 
       newTable[intRow] = [...state.table[intRow]];
-      newTable[intRow][intCell] = CODE.CLICKED_BOMB;
+      newTable[intRow][intCell] = CODE.CLICKED_BOMB; // 클릭한 곳에 폭탄이 있다면 게임을 끝냅니다.
       return { ...state, table: newTable, gameState: true, timerCheck: true };
     }
     case FLAG_CELL: {
