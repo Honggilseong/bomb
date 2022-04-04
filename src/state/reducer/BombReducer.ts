@@ -8,6 +8,7 @@ import {
   QUESTION_CELL,
   NORMALIZE_CELL,
   SET_TIMER,
+  CLICK_FIRST,
 } from "../actions/bombActionDispatch";
 
 interface InitialState {
@@ -242,6 +243,12 @@ const BombReducer = (
       return {
         ...state,
         timer: state.timer + 1,
+      };
+    }
+    case CLICK_FIRST: {
+      return {
+        ...state,
+        isFirst: false,
       };
     }
     default:

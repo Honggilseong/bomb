@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clickBomb,
+  clickFirst,
   flagCell,
   normalizeCell,
   openCell,
@@ -72,22 +73,32 @@ function Td({ rowIndex, cellIndex }: Props) {
       case CODE.FLAG_BOMB:
       case CODE.FLAG:
       case CODE.QUESTION_BOMB:
-      case CODE.QUESTION:
-        return;
-      case CODE.NORMAL:
+      case CODE.QUESTION: {
+        return dispatch(clickFirst());
+      }
+
+      case CODE.NORMAL: {
+        dispatch(clickFirst());
         dispatch(
           openCell({ row: rowIndex.toString(), cell: cellIndex.toString() })
         );
         return;
-      case CODE.BOMB:
-        dispatch(
-          clickBomb({ row: rowIndex.toString(), cell: cellIndex.toString() })
-        );
+      }
+      case CODE.BOMB: {
+        if (bombsArray.isFirst) {
+          dispatch(clickFirst());
+        } else {
+          dispatch(
+            clickBomb({ row: rowIndex.toString(), cell: cellIndex.toString() })
+          );
+        }
         return;
+      }
       default:
         return;
     }
   };
+
   const onRightClick = (event: any) => {
     event.preventDefault();
     switch (bombsArray.table[rowIndex][cellIndex]) {

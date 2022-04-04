@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import {
   CLICK_BOMB,
+  CLICK_FIRST,
   FLAG_CELL,
   NORMALIZE_CELL,
   OpenCellOption,
@@ -56,5 +57,11 @@ export const normalizeCell =
 export const setTimer = () => (dispatch: Dispatch) => {
   dispatch({
     type: SET_TIMER,
+  });
+};
+
+export const clickFirst = () => (dispatch: Dispatch) => {
+  dispatch({
+    type: CLICK_FIRST,
   });
 };

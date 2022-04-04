@@ -5,6 +5,7 @@ export const FLAG_CELL = "FLAG_CELL";
 export const QUESTION_CELL = "QUESTION_CELL";
 export const NORMALIZE_CELL = "NORMALIZE_CELL";
 export const SET_TIMER = "SET_TIMER";
+export const CLICK_FIRST = "CLICK_FIRST";
 
 export interface StartOption {
   row: string;
@@ -51,6 +52,10 @@ export interface setTimer {
   type: typeof SET_TIMER;
 }
 
+export interface clickFirst {
+  type: typeof CLICK_FIRST;
+}
+
 export type bombActionDispatch =
   | startGame
   | openCell
@@ -58,4 +63,5 @@ export type bombActionDispatch =
   | flagCell
   | questionCell
   | normalizeCell
-  | setTimer;
+  | setTimer
+  | clickFirst;
